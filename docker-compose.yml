@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  jupyterhub:
+    build: jupyterhub                
+    image: iisy/jupyterhub
+    container_name: jupyterhub_hub   
+    volumes:                         
+      - /var/run/docker.sock:/var/run/docker.sock # Give access to Docker socket.
+      # TODO: container persistence!
+    ports:
+      - "8000:8000" # hub port
+    environment:
+      # General
+      DOCKER_JUPYTER_IMAGE: iisy/jupyterlab
+      DOCKER_NETWORK_NAME: jupyterhub_default
+      HUB_IP: jupyterhub_hub
+      # OAUTH Settings
+      OAUTH_CLIENT_SECRET: ${CLIENT_SECRET}
+      OAUTH_CLIENT_ID: ${CLIENT_ID}
+      OAUTH_CALLBACK_URL: http://localhost:8000/hub/oauth_callback
+      GITLAB_HOST: https://gitlab.beuth-hochschule.de/
+      # Nvidia Settings
+      CUDA_INSTALLED: "no" # "yes" or "no"
+    # TODO: advanced network settings (just local network)
+
+  jupyterlab:
+    build: jupyterlab
+    image: iisy/jupyterlab
+    command: echo
