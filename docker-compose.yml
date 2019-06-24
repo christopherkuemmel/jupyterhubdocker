@@ -44,7 +44,7 @@ services:
     ## TODO: advanced network settings (just local network)
     # network_mode: none
 
-## TODO: use traefik & networks
+## TODO: use traefik & networks - https://docs.traefik.io/user-guide/docker-and-lets-encrypt/
 #   traefik:
 #     image: traefik:1.7
 #     restart: always
