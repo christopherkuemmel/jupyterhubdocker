@@ -11,6 +11,9 @@ c.JupyterHub.hub_ip = os.environ['HUB_IP']
 # add admins
 c.Authenticator.admin_users = {'ckuemmel', 'khildebrand'}
 
+# whitelist users
+c.Authenticator.whitelist = {'ckuemmel', 'khildebrand'}
+
 # nvidia-docker setup
 if 'yes' in cuda_installed:
     c.DockerSpawner.extra_create_kwargs = {'runtime': 'nvidia'}
@@ -24,6 +27,8 @@ c.DockerSpawner.extra_create_kwargs.update({
 	# 'command': 'bash /usr/local/bin/start-singleuser.sh'
 	# 'command': 'jupyter lab --ip=0.0.0.0 --port=8888'
 })
+
+c.Spawner.default_url = '/lab'
 
 # shutdown idle docker container
 c.JupyterHub.services = [
