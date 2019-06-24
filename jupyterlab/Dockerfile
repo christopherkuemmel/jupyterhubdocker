@@ -1,4 +1,4 @@
-FROM anibali/pytorch:cuda-10.0
+FROM pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel
 
 # install jupyterhub/lab/notebook dependecies
 RUN conda install --quiet --yes \
@@ -12,14 +12,21 @@ RUN conda install --quiet --yes \
     scipy \
     scikit-learn \
     numpy \
+    pandas \
+    pandas-profiling \
     && conda clean -ya
 
 RUN pip install \
     nibabel \
-    tensorflow-gpu
+    tensorflow-gpu \
+    opencv-python
+
+# create new user without sudo
+RUN groupadd -r user && useradd -ms /bin/bash --no-log-init -r -g user user
+USER user
 
 # define workdir for notebook
 RUN mkdir /home/user/workdir
 WORKDIR /home/user/workdir
 
-CMD ["jupyterhub-singleuser --ip=0.0.0.0"]
+CMD ["jupyterhub-singleuser", "--ip=0.0.0.0"]
