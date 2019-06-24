@@ -10,6 +10,9 @@ services:
       # TODO: container persistence!
     ports:
       - "8000:8000" # hub port
+    ## TODO: switch to expose
+    # expose:
+    #   - "8000"
     environment:
       # General
       DOCKER_JUPYTER_IMAGE: iisy/jupyterlab
@@ -19,12 +22,44 @@ services:
       OAUTH_CLIENT_SECRET: ${CLIENT_SECRET}
       OAUTH_CLIENT_ID: ${CLIENT_ID}
       OAUTH_CALLBACK_URL: http://localhost:8000/hub/oauth_callback
+      # OAUTH_CALLBACK_URL: http://141.64.184.101:8000/hub/oauth_callback
       GITLAB_HOST: https://gitlab.beuth-hochschule.de/
       # Nvidia Settings
       CUDA_INSTALLED: "no" # "yes" or "no"
-    # TODO: advanced network settings (just local network)
+    ## TODO: use traefik configuration
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.docker.network=web"
+    #   - "traefik.basic.frontend.rule=Host:141.64.184.101"
+    #   - "traefik.basic.port=8000"
+    ## TODO: advanced network settings (just local network)
+    # networks:
+    #   - web
+    #   - default
 
   jupyterlab:
     build: jupyterlab
     image: iisy/jupyterlab
     command: echo
+    ## TODO: advanced network settings (just local network)
+    # network_mode: none
+
+## TODO: use traefik & networks
+#   traefik:
+#     image: traefik:1.7
+#     restart: always
+#     ports:
+#       - 80:80
+#       - 443:443
+#       - 8080:8080
+#     networks:
+#       - web
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#       - ./reverse-proxy/traefik/traefik.toml:/traefik.toml
+#       - ./reverse-proxy/traefik/acme.json:/acme.json
+#     container_name: traefik
+
+# networks:
+#   web:
+#     external: true
