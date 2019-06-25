@@ -7,7 +7,6 @@ services:
     container_name: jupyterhub_hub   
     volumes:                         
       - /var/run/docker.sock:/var/run/docker.sock # Give access to Docker socket.
-      - jupyterhub_data:/srv/jupyterhub
     ports:
       - "8000:8000" # hub port
     environment:
@@ -28,6 +27,3 @@ services:
     build: jupyterlab
     image: iisy/jupyterlab
     command: echo
-
-volumes:
-  jupyterhub_data:
