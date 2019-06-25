@@ -33,4 +33,7 @@ c.Spawner.default_url = '/lab'
 ## Configure authentication (delagated to GitLab)
 c.JupyterHub.authenticator_class = GitLabOAuthenticator
 
-# TODO: user data persistence
+# user data persistence
+notebook_dir = '/home/user/workdir'
+c.DockerSpawner.notebook_dir = notebook_dir
+c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }

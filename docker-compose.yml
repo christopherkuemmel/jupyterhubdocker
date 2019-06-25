@@ -7,7 +7,6 @@ services:
     container_name: jupyterhub_hub   
     volumes:                         
       - /var/run/docker.sock:/var/run/docker.sock # Give access to Docker socket.
-      # TODO: container persistence!
     ports:
       - "8000:8000" # hub port
     environment:
