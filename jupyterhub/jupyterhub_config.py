@@ -30,16 +30,10 @@ c.DockerSpawner.extra_create_kwargs.update({
 
 c.Spawner.default_url = '/lab'
 
-# shutdown idle docker container
-c.JupyterHub.services = [
-    {
-        'name': 'cull_idle',
-        'admin': True,
-        'command': 'python /srv/jupyterhub/cull_idle_servers.py --timeout=1800'.split(),
-    },
-]
-
 ## Configure authentication (delagated to GitLab)
 c.JupyterHub.authenticator_class = GitLabOAuthenticator
 
-# TODO: user data persistence
+# user data persistence
+notebook_dir = '/home/user/workdir'
+c.DockerSpawner.notebook_dir = notebook_dir
+c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }
