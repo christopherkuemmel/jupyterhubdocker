@@ -25,6 +25,8 @@ RUN pip install \
 RUN groupadd -r user && useradd -ms /bin/bash --no-log-init -r -g user user
 USER user
 
+COPY jupyter_notebook_config.py /home/user/.jupyter/jupyter_notebook_config.py
+
 # define workdir for notebook
 RUN mkdir /home/user/workdir
 WORKDIR /home/user/workdir
