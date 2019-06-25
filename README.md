@@ -5,14 +5,15 @@ Accessing the JupyterHub with an OAuth GitLab authentication, the environment wi
 
 ## TOC
 
-- [JupyterHub](#jupyterhub)
-  - [TOC](#toc)
-  - [Installation](#installation)
-    - [Requirements](#requirements)
-    - [Authentication & Security](#authentication--security)
-  - [Usage](#usage)
-  - [References](#references)
-  - [License](#license)
+- [JupyterHub](#JupyterHub)
+  - [TOC](#TOC)
+  - [Installation](#Installation)
+    - [Requirements](#Requirements)
+    - [Authentication & Security](#Authentication--Security)
+  - [Usage](#Usage)
+    - [Data Persistance](#Data-Persistance)
+  - [References](#References)
+  - [License](#License)
 
 ## Installation
 
@@ -44,6 +45,13 @@ Starting the system:
   * `-d`: will start the system in detached mode, so you can safely close the terminal session
 * `docker-compose down`: will shutdown the hub, but not all other active notebook containers! If there are some running after you shutdown the system, you manually have to stop and remove them.
 
+### Data Persistance
+
+Foreach Notebook/ User a docker volume will be created which will backup all the scripts from the user.
+In case a container will be destroyed, the scripts will be backed up.
+However, if you want to remove a user, make sure to delete the associated docker volume.
+
+1. `docker volume rm jupyter-user-{USERNAME}`
 
 ## References
 
