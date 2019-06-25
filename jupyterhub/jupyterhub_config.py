@@ -43,6 +43,6 @@ c.JupyterHub.services = [
 c.JupyterHub.authenticator_class = GitLabOAuthenticator
 
 # user data persistence
-notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan/work'
+notebook_dir = '/home/user/workdir'
 c.DockerSpawner.notebook_dir = notebook_dir
 c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }
