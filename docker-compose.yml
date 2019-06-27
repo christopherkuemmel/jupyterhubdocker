@@ -4,7 +4,7 @@ services:
   jupyterhub:
     build: jupyterhub                
     image: iisy/jupyterhub
-    container_name: jupyterhub_hub   
+    container_name: iisy/jupyterhub   
     volumes:                         
       - /var/run/docker.sock:/var/run/docker.sock # Give access to Docker socket.
     ports:
@@ -12,8 +12,8 @@ services:
     environment:
       # General
       DOCKER_JUPYTER_IMAGE: iisy/jupyterlab
-      DOCKER_NETWORK_NAME: jupyterhub_default
-      HUB_IP: jupyterhub_hub
+      DOCKER_NETWORK_NAME: jupyterhub-default
+      HUB_IP: iisy/jupyterhub
       # OAUTH Settings
       OAUTH_CLIENT_SECRET: ${CLIENT_SECRET}
       OAUTH_CLIENT_ID: ${CLIENT_ID}
@@ -21,9 +21,11 @@ services:
       GITLAB_HOST: https://gitlab.beuth-hochschule.de/
       # Nvidia Settings
       CUDA_INSTALLED: "no" # "yes" or "no"
+    restart: on-failure
     # TODO: advanced network settings (just local network)
 
   jupyterlab:
     build: jupyterlab
     image: iisy/jupyterlab
+    container_name: iisy/jupyterlab-throwaway
     command: echo
