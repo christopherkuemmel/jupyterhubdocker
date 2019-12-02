@@ -2,7 +2,7 @@ version: '3'
 
 services:
   jupyterhub:
-    image: registry.beuth-hochschule.de/iisy/jupyterhub${BUILD_TAG}
+    image: registry.beuth-hochschule.de/iisy/jupyterhub:jupyterhub-${BUILD_TAG}
     container_name: jupyterhub   
     volumes:                         
       - /var/run/docker.sock:/var/run/docker.sock # Give access to Docker socket.
@@ -25,7 +25,7 @@ services:
     # TODO: advanced network settings (just local network)
 
   jupyterlab:
-    image: registry.beuth-hochschule.de/iisy/jupyterlab${BUILD_TAG}
+    image: registry.beuth-hochschule.de/iisy/jupyterhub:jupyterlab-${BUILD_TAG}
     container_name: jupyterlab-throwaway
     command: echo
 
