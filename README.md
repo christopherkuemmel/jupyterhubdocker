@@ -45,7 +45,7 @@ Starting the system:
   * `-d`: will start the system in detached mode, so you can safely close the terminal session
 * `docker-compose down`: will shutdown the hub, but not all other active notebook containers! If there are some running after you shutdown the system, you manually have to stop and remove them.
 
-**Production**
+**Production - WIP: not working properly at the moment!**
 
 For production mode you do not need to checkout this repository.
 Simply follow these steps to run the jupyterhub on your system:

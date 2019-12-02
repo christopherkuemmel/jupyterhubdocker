@@ -11,7 +11,7 @@ services:
       - "8000:8000" # hub port
     environment:
       # General
-      DOCKER_JUPYTER_IMAGE: iisy/jupyterlab
+      DOCKER_JUPYTER_IMAGE: registry.beuth-hochschule.de/iisy/jupyterhub:jupyterlab-${BUILD_TAG}
       DOCKER_NETWORK_NAME: jupyterhub_default
       HUB_IP: jupyterhub
       # OAUTH Settings
