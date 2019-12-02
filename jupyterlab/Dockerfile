@@ -32,10 +32,12 @@ RUN pip install \
 RUN groupadd -r user && useradd -ms /bin/bash --no-log-init -r -g user user
 USER user
 
-COPY jupyter_notebook_config.py /home/user/.jupyter/jupyter_notebook_config.py
+# define workdir and .jupyter for notebook
+RUN mkdir /home/user/.jupyter && mkdir /home/user/workdir
+# add jupyter notebook configuration
+COPY --chown=user:user jupyter_notebook_config.py /home/user/.jupyter/jupyter_notebook_config.py
 
-# define workdir for notebook
-RUN mkdir /home/user/workdir
+# change base directory
 WORKDIR /home/user/workdir
 
 CMD ["jupyterhub-singleuser", "--ip=0.0.0.0"]

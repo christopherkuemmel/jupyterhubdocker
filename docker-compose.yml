@@ -19,7 +19,7 @@ services:
       OAUTH_CLIENT_SECRET: ${CLIENT_SECRET}
       OAUTH_CLIENT_ID: ${CLIENT_ID}
       OAUTH_CALLBACK_URL: http://localhost:8000/hub/oauth_callback
-      GITLAB_HOST: https://gitlab.beuth-hochschule.de/
+      GITLAB_HOST: https://gitlab.beuth-hochschule.de
       # Nvidia Settings
       CUDA_INSTALLED: "no" # "yes" or "no"
     restart: on-failure
