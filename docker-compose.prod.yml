@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  jupyterhub:
+    image: registry.beuth-hochschule.de/iisy/jupyterhub${BUILD_TAG}
+    container_name: jupyterhub   
+    volumes:                         
+      - /var/run/docker.sock:/var/run/docker.sock # Give access to Docker socket.
+      - jupyterhub_data:/srv/jupyterhub
+    ports:
+      - "8000:8000" # hub port
+    environment:
+      # General
+      DOCKER_JUPYTER_IMAGE: iisy/jupyterlab
+      DOCKER_NETWORK_NAME: jupyterhub_default
+      HUB_IP: jupyterhub
+      # OAUTH Settings
+      OAUTH_CLIENT_SECRET: ${CLIENT_SECRET}
+      OAUTH_CLIENT_ID: ${CLIENT_ID}
+      OAUTH_CALLBACK_URL: http://${IP}:8000/hub/oauth_callback
+      GITLAB_HOST: https://gitlab.beuth-hochschule.de/
+      # Nvidia Settings
+      CUDA_INSTALLED: ${CUDA_AVAILABLE}
+    restart: on-failure
+    # TODO: advanced network settings (just local network)
+
+  jupyterlab:
+    image: registry.beuth-hochschule.de/iisy/jupyterlab${BUILD_TAG}
+    container_name: jupyterlab-throwaway
+    command: echo
+
+volumes:
+  jupyterhub_data:
