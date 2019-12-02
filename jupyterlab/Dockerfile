@@ -1,12 +1,17 @@
-FROM pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel
+FROM pytorch/pytorch:1.3-cuda10.1-cudnn7-devel
+
+# update package manager and install base deps
+RUN apt-get update \
+    && apt-get install -y libsm6 libxext6 libxrender-dev
 
 # install jupyterhub/lab/notebook dependecies
 RUN conda install --quiet --yes \
-    'notebook=5.7.8' \
-    'jupyterhub=0.9.6' \
-    'jupyterlab=0.35.5' \
+    'notebook=6.0.*' \
+    'jupyterhub=1.0.*' \
+    'jupyterlab=1.2.*' \
     && conda clean -ya
 
+# install default datascience deps
 RUN conda install --quiet --yes \ 
     matplotlib \
     scipy \
@@ -14,6 +19,8 @@ RUN conda install --quiet --yes \
     numpy \
     pandas \
     pandas-profiling \
+    && conda install --quiet --yes -c conda-forge \
+    nodejs \
     && conda clean -ya
 
 RUN pip install \
